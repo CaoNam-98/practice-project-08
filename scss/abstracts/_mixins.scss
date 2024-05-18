@@ -1,0 +1,23 @@
+$grid-breakpoints: (
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px,
+);
+
+@mixin breakpoint($key) {
+    // Tham số 1 là map cần lấy giá trị, tham số 2 là tên trường cần lấy giá trị => sm, lg,...
+    $breakpoint: map-get($grid-breakpoints, $key);
+    // Kiểm tra nếu $key không nằm trong danh sách => $breakpoint trả về null
+    @if ($breakpoint) {
+        // Tạo ra breakpoint
+        @media (max-width: ($breakpoint - 0.02)) {
+            // Nội dung sẽ nhận qua @content
+            @content;
+        }
+    } @else {
+        // nếu $key không nằm trong danh sách thì trả về lỗi => $breakpoint = null
+        @error "The value #{$key} is not in breakpoints list.";
+    }
+}

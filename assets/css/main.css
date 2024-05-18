@@ -63,6 +63,7 @@ html {
 body {
   font-size: 1.6rem;
   font-family: Gordita, sans-serif;
+  color: var(--text-color);
 }
 
 a {
@@ -74,6 +75,15 @@ button {
   border: none;
   outline: none;
   background: transparent;
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+  color: inherit;
+}
+
+.icon {
+  filter: var(--icon-color);
 }
 
 .row > *, .container-fluid, .container {
@@ -1107,29 +1117,60 @@ button {
     --grid-gutter-y: 90px;
   }
 }
+html.dark {
+  --text-color: #ffffff;
+  --icon-color: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(49deg) brightness(103%) contrast(103%);
+  --header-bg-color: #171C28;
+  --top-act-group-bg-color: #292E39;
+  --top-act-group-shadow: 0px 20px 60px 10px rgba(0, 0, 0, 0.20);
+  --top-act-group-separate: #ededf6;
+}
+
+html {
+  --text-color: #1a162e;
+  --icon-color: filter: brightness(0) saturate(100%) invert(10%) sepia(28%) saturate(1056%) hue-rotate(210deg) brightness(96%) contrast(100%);
+  --header-bg-color: #eee;
+  --top-act-group-bg-color: #fff;
+  --top-act-group-shadow: rgba(237, 237, 246, 0.2);
+  --top-act-group-separate: #ededf6;
+}
+
+.top-act__btn, .top-act__group, .top-act, .navbar__link, .navbar__list, .navbar, .top-bar {
+  display: flex;
+  align-items: center;
+}
+
 .header {
-  background: #eee;
+  background: var(--header-bg-color);
+}
+@media (max-width: 991.98px) {
+  .header {
+    width: 100px;
+  }
+}
+@media (max-width: 575.98px) {
+  .header {
+    width: 50px;
+  }
 }
 
 .top-bar {
-  display: flex;
   padding: 30px 0;
 }
 
 .navbar {
-  display: flex;
-  align-items: center;
   margin-left: 144px;
   margin-right: auto;
 }
+@media (max-width: 991.98px) {
+  .navbar {
+    display: none;
+  }
+}
 .navbar__list {
-  display: flex;
-  align-items: center;
   gap: 30px;
 }
 .navbar__link {
-  display: flex;
-  align-items: center;
   gap: 6px;
   color: #1a162e;
   font-size: 1.5rem;
@@ -1141,27 +1182,22 @@ button {
 }
 
 .top-act {
-  display: flex;
-  align-items: center;
   gap: 20px;
 }
 .top-act__group {
-  display: flex;
-  align-items: center;
   border-radius: 8px;
   min-width: 50px;
   height: 50px;
-  background: #fff;
-  box-shadow: 0px 20px 60px 10px rgba(237, 237, 246, 0.2);
+  background: var(--top-act-group-bg-color);
+  box-shadow: 0px 20px 60px 10px var(--top-act-group-shadow);
 }
 .top-act__group--single .top-act__btn {
   padding: 13px;
 }
 .top-act__btn {
-  display: flex;
-  align-items: center;
   padding: 13px 20px;
   gap: 10px;
+  cursor: pointer;
 }
 .top-act__title {
   color: #1a162e;
@@ -1172,13 +1208,14 @@ button {
 .top-act__separate {
   width: 1px;
   height: 30px;
-  background: #ededf6;
+  background: var(--top-act-group-separate);
 }
 .top-act__avatar {
   width: 50px;
   height: 50px;
   border-radius: 8px;
   display: block;
+  cursor: pointer;
 }
 
 .logo {
