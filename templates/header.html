@@ -1,6 +1,10 @@
 
-<div class="container">
+<div class="container ">
     <div class="top-bar">
+        <!-- More -->
+        <button class="top-bar__more">
+            <img src="./assets/icons/more.svg" alt="" class="icon top-bar__more-icon">
+        </button>
         <!-- Logo -->
         <a href="./" class="logo">
             <img src="./assets/icons/logo.svg" alt="grocerymart" class="logo__img">
@@ -9,24 +13,35 @@
     
         <!-- Navbar -->
         <nav class="navbar">
-            <ul class="navbar__list">
-                <li>
+            <ul class="navbar__list js-dropdown-list">
+                <li class="navbar__item">
                     <a href="" class="navbar__link">
                         Departments
                         <img src="./assets/icons/arrow-down.svg" alt="arrow-down" class="navbar__arrow icon">
                     </a>
+                    <div class="dropdown">
+                        <div class="dropdown__inner">
+                            <div class="top-menu">
+                                <div class="top-menu__main">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </li>
-                <li>
+                <li class="navbar__item">
                     <a href="" class="navbar__link">
                         Grocery
                         <img src="./assets/icons/arrow-down.svg" alt="arrow-down" class="navbar__arrow icon">
                     </a>
+                    
                 </li>
-                <li>
+                <li class="navbar__item">
                     <a href="" class="navbar__link">
                         Beauty
                         <img src="./assets/icons/arrow-down.svg" alt="arrow-down" class="navbar__arrow icon">
                     </a>
+                    
                 </li>
             </ul>
         </nav>
