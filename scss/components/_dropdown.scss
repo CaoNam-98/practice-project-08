@@ -7,11 +7,14 @@
   // display: none;
 
   &__inner {
+    // Do inner là thẻ cha của top-menu nên tại top-menu có thể dùng lại được
+    --inner-max-height: min(582px, 100vh - 158px);
+    --inner-padding: 30px;
     position: relative;
     // Để giải quyết vấn đề khi height của màn hình nhỏ hơn 582px thì hiển thị cuộn dọc => để bỏ hiển thị cuộn dọc thì xử lý bằng hàm min()
     // height: 582px;
     // Để không hiển thị dropdown có phần trắng thừa nếu nhở hơn height thì dùng max-height
-    max-height: min(582px, 100vh - 158px);
+    max-height: var(--inner-max-height);
     padding: 30px;
     border-radius: 20px;
     background: var(--dropdown-bg-color);
@@ -32,12 +35,14 @@
 }
 
 .top-menu {
-  height: 100%;
+  max-height: calc(var(--inner-max-height) - var(--inner-padding)*2);
 
   &__main {
-    height: 100%;
+    max-height: inherit;
     width: 292px;
     border-right: 1px solid var(--top-menu-border-color);
+    // Lưu ý: không thể dùng overflow auto cho height là dạng % mà phải dùng px
+    overflow-y: auto;
   }
 }
 
@@ -71,6 +76,7 @@
     width: 24px;
     height: 24px;
     object-fit: cover;
+    filter: var(--menu-column-icon-color);
   }
 
   &__heading {
