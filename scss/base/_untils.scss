@@ -1,0 +1,30 @@
+$breakpoints: (
+    xxl: 1400px,
+    xl: 1200px,
+    lg: 992px,
+    md: 768px,
+    sm: 576px,
+);
+
+$display-values: block, flex, grid, none;
+
+@mixin make-display($breakpoint: null) {
+    // Nếu $breakpoint có giá trị thì trả về "-#{$breakpoint}", nếu không thì trả về ""
+    $infix: if($breakpoint, "-#{$breakpoint}", "");
+    // null thì khi gọi #{$breakpoint} không sinh ra gì cả
+    @each $display in $display-values {
+        // Để sinh ra class thì làm như sau
+        .d#{$infix}-#{$display} {
+            display: $display !important;
+        }
+    }
+}
+
+@include make-display();
+
+@each $breakpoint, $dimension in $breakpoints {
+    @media (max-width: ($dimension - 0.02)) {
+        // Hiểu include là đính kèm code mixins vào @include
+        @include make-display($breakpoint);
+    }
+}

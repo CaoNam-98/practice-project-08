@@ -25,9 +25,11 @@ button {
     background: transparent;
 }
 
-button, input, textarea, select {
+a, img, button, input, textarea, select {
     font-family: inherit;
     color: inherit;
+    // Khi trên tablet mà bấm chuột vào item img, a thì xuát hiện background màu xanh nhạt => để bỏ thì dùng thuộc tính này nhé
+    -webkit-tap-highlight-color: transparent;
 }
 
 .icon {
