@@ -8,6 +8,11 @@
   width: min(1240px, 100%);
   display: none;
 
+  @include abstracts.breakpoint(lg) {
+    position: initial;
+    padding-top: 0;
+  }
+
   &__inner {
     // Do inner là thẻ cha của top-menu nên tại top-menu có thể dùng lại được
     // --inner-max-height: min(582px, 100vh - 158px);
@@ -15,7 +20,7 @@
     position: relative;
     // Để giải quyết vấn đề khi height của màn hình nhỏ hơn 582px thì hiển thị cuộn dọc => để bỏ hiển thị cuộn dọc thì xử lý bằng hàm min()
     // height: 582px;
-    // Để không hiển thị dropdown có phần trắng thừa nếu nhở hơn height thì dùng max-height
+    // Để không hiển thị dropdown có phần trắng thừa nếu nhỏ hơn height thì dùng max-height
     padding: 30px;
     border-radius: 20px;
     background: var(--dropdown-bg-color);
@@ -32,6 +37,18 @@
       // Thay đổi mũi tên cho dark
       filter: var(--dropdown-arrow-color);
     }
+
+    @include abstracts.breakpoint(lg) {
+      padding: 0 40px;
+      border-radius: none;
+      background: transparent;
+      box-shadow: none;
+
+      &::before {
+        // Để bỏ before và after thì content là none;
+        content: none;
+      }
+    }
   }
 }
 
@@ -46,6 +63,12 @@
     border-right: 1px solid var(--top-menu-border-color);
     // Lưu ý: không thể dùng overflow auto cho height là dạng % mà phải dùng px
     overflow-y: auto;
+
+    @include abstracts.breakpoint(lg) {
+      width: 100%;
+      height: auto;
+      border-right: none;
+    }
   }
 }
 
@@ -58,6 +81,10 @@
     margin-top: var(--inner-padding);
   }
 
+  @include abstracts.breakpoint(lg) {
+    margin-top: 10px;
+  }
+
   &__icon {
     position: relative;
     // Khi text bên phải dài sẽ làm hình bị méo nên thêm vào
@@ -67,6 +94,10 @@
 
     @include abstracts.breakpoint(xl) {
       display: none;
+    }
+
+    @include abstracts.breakpoint(lg) {
+      display: block;
     }
   }
 
@@ -96,10 +127,18 @@
     font-size: 1.6rem;
     font-weight: 500;
     line-height: 1.5; /* 150% */
+
+    @include abstracts.breakpoint(lg) {
+      margin-bottom: 26px;
+    }
   }
 
   &__list {
     margin-top: 19px;
+
+    @include abstracts.breakpoint(lg) {
+      margin-top: 0;
+    }
   }
 
   &__item {
@@ -138,6 +177,12 @@
   // Mình không cần giới hạn height => vì cách top: 0 và bottom: 0 là cũng là cách set height rồi
   overflow-y: auto;
 
+  @include abstracts.breakpoint(lg) {
+    position: initial;
+    grid-template-columns: 1fr;
+    padding-left: 0;
+  }
+
   &--not-main {
     position: initial;
     display: grid;
@@ -145,5 +190,11 @@
     grid-template-columns: repeat(4, 1fr);
     height: var(--max-inner-height);
     padding-left: 0;
+
+    @include abstracts.breakpoint(lg) {
+      grid-template-columns: 1fr;
+      // Để bỏ thanh cuộn con trong sub-menu thì dùng
+      height: auto;
+    }
   }
 }

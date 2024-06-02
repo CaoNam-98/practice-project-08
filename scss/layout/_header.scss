@@ -96,6 +96,9 @@
     @include abstracts.breakpoint(lg) {
       flex-direction: column;
       align-items: flex-start;
+      // Show scroll navbar trên lg
+      overflow-y: auto;
+      height: calc(100% - 26px);
     }
   }
 
@@ -108,10 +111,16 @@
     }
 
     @include abstracts.breakpoint(lg) {
-      &:hover .dropdown {
-        display: none;
-      }
       width: 100%;
+
+      // Do trên tablet không ăn hiệu ứng hover nên khi click chuột vào là ăn thuộc tính hover => bỏ thuộc tính hover trên desktop
+      &:hover .dropdown {
+       display: none;
+      }
+
+      &--active .dropdown {
+        display: block !important;
+      }
     }
   }
 
@@ -134,6 +143,16 @@ justify-content: space-between;
 
   &__arrow {
     margin-top: 3px;
+
+    @include abstracts.breakpoint(lg) {
+      rotate: -90deg;
+      transition: rotate 0.3s;
+    }
+  }
+
+  // Khi nhấn vào thì ^ sẽ quay xuống dưới
+  &__item--active &__arrow {
+    rotate : 0deg;
   }
 }
 

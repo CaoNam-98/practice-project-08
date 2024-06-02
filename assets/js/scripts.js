@@ -89,7 +89,6 @@ window.addEventListener("resize", calArrowPos);
 // Tính toán lại vị trí arrow sau khi tải template
 window.addEventListener("template-loaded", calArrowPos);
 
-
 /**
  * Giữ active menu khi hover
  *
@@ -115,13 +114,19 @@ function handleActiveMenu() {
             if (!items.length) return;
 
             removeActive(menu);
-            items[0].classList.add(activeClass);
+            if (window.innerWidth > 991) items[0].classList.add(activeClass);
 
             Array.from(items).forEach((item) => {
                 item.onmouseenter = () => {
                     if (window.innerWidth <= 991) return;
                     removeActive(menu);
                     item.classList.add(activeClass);
+                };
+                item.onclick = () => {
+                    if (window.innerWidth > 991) return;
+                    removeActive(menu);
+                    item.classList.add(activeClass);
+                    item.scrollIntoView();
                 };
             });
         });
@@ -133,7 +138,6 @@ function handleActiveMenu() {
         dropdown.onmouseleave = () => init();
     });
 }
-
 
 /**
  * JS toggle
@@ -163,3 +167,20 @@ function initJsToggle() {
         };
     });
 }
+
+// Xử lý đóng mở ^ menu trên tablet
+// Thêm class vào và khi nhân vào sẽ thêm class navbar__item--active vào navbar--item
+window.addEventListener("template-loaded", () => {
+    const links = $$(".js-dropdown-list > li > a");
+
+    links.forEach((link) => {
+        link.onclick = () => {
+            if (window.innerWidth > 991) return;
+            console.log('link: ', link);
+            // closest lấy đến thẻ li cha và thêm/xoá class navbar__item--active
+            const item = link.closest("li");
+            console.log('item: ', item);
+            item.classList.toggle("navbar__item--active");
+        };
+    });
+});
