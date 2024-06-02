@@ -44,16 +44,19 @@
   @include abstracts.breakpoint(lg) {
     position: fixed;
     inset: 0 50% 0 0;
-    background: #fff;
+    border-radius: 0px 20px 20px 0px;
+    background: var(--sidebar-bg);
     margin-left: 0;
     z-index: 9;
     padding: 20px 0;
-
+    
     translate: -100%;
     transition: translate 0.5s;
 
     &.show {
       translate: 0;
+      // Khi ẩn sidebar thì nó chỉ chạy sang phải chứ box-shadow vẫn còn nên ẩn sidebar nó vẫn ám trên screen => xử lý khi show thì mới có box-shadow
+      box-shadow: 0px 40px 90px 20px var(--sidebar-shadow);
     }
 
     &.show ~ &__overlay {
@@ -62,12 +65,21 @@
     }
   }
 
+  @include abstracts.breakpoint(sm) {
+    // set độ rộng cho menu trên điện thoại sm
+    inset: 0 20% 0 0;
+  }
+
   &__close-btn {
     display: none;
 
     @include abstracts.breakpoint(lg) {
       display: block;
       padding: 10px 40px;
+    }
+
+    @include abstracts.breakpoint(sm) {
+      padding: 0 20px 10px;
     }
   }
 
@@ -98,7 +110,18 @@
       align-items: flex-start;
       // Show scroll navbar trên lg
       overflow-y: auto;
-      height: calc(100% - 26px);
+      // Để loại bỏ việc đang show menu mà ngời dùng vuốt lên trên cùng màn hình thì sẽ bị load lại trang => để xử lý thì dùng overscroll-behavior: contain; để tăng trải nghiệm người dùng
+      overscroll-behavior: contain;
+
+      height: calc(100% - 40px);
+    }
+
+    @include abstracts.breakpoint(md) {
+      height: calc(100% - 140px);
+    }
+
+    @include abstracts.breakpoint(sm) {
+      height: calc(100% - 124px);
     }
   }
 
@@ -115,7 +138,7 @@
 
       // Do trên tablet không ăn hiệu ứng hover nên khi click chuột vào là ăn thuộc tính hover => bỏ thuộc tính hover trên desktop
       &:hover .dropdown {
-       display: none;
+        display: none;
       }
 
       &--active .dropdown {
@@ -135,9 +158,14 @@
 
     @include abstracts.breakpoint(lg) {
       padding: 0 40px;
-font-size: 1.6rem;
-line-height: 1.5; /* 146.667% */
-justify-content: space-between;
+      font-size: 1.6rem;
+      line-height: 1.5; /* 146.667% */
+      justify-content: space-between;
+    }
+
+    @include abstracts.breakpoint(sm) {
+      height: 44px;
+      padding: 0 20px;
     }
   }
 
@@ -152,7 +180,7 @@ justify-content: space-between;
 
   // Khi nhấn vào thì ^ sẽ quay xuống dưới
   &__item--active &__arrow {
-    rotate : 0deg;
+    rotate: 0deg;
   }
 }
 
@@ -209,5 +237,30 @@ justify-content: space-between;
     border-radius: 8px;
     display: block;
     cursor: pointer;
+  }
+}
+
+.nav-btn {
+  height: 50px;
+  width: 100%;
+  padding: 0 40px;
+  align-items: center;
+
+  @include abstracts.breakpoint(sm) {
+    padding: 0 20px;
+    height: 44px;
+  }
+
+  &__title {
+    margin-left: 16px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.46; /* 146.667% */
+  }
+
+  &__qnt {
+    // Cách kế thừa lại css của .nav-btn__title. Chúng ta không được dùng &__title vì & sẽ đại diện cho .nav-btn__qnt__title
+    @extend .nav-btn__title;
+    margin-left: auto;
   }
 }
