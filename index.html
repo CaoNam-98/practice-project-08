@@ -48,7 +48,16 @@
       <div class="slideshow">
         <div class="slideshow__inner">
           <div class="slideshow__item">
-            <img src="./assets/img/slideshow/item-1.png" alt="" class="slideshow__img">
+            <a href="#!" class="slideshow__link">
+              <!-- Cách responsive hình ?nh v?i th? picture và source -->
+              <picture>
+                <!-- Hình cho mobile d?t ? srcset -->
+                <source media="(max-width: 768.98px)" srcset="../assets/img/slideshow/item-1-md.png" />
+                <!-- Hình cho desktop d?t ? img -->
+                <img src="./assets/img/slideshow/item-1.png" alt="" class="slideshow__img">
+              </picture>
+              
+            </a>
           </div>
           <div class="slideshow__item">
             <img src="./assets/img/slideshow/item-1.png" alt="" class="slideshow__img">

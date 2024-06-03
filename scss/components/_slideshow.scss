@@ -1,6 +1,15 @@
+@use "../abstracts";
+
 .slideshow {
+    // Vấn đề khi hover vào menus thì nó hiển thị bên dưới slideshow. Lý do, tại slideshow chúng ta dùng position: relative thì 
+    // slideshow mặc định được định vị z-index: auto thì phần tử viết ở sau sẽ cao hơn phần tử viết ở trước tính theo vị trí trong code.
+    // Vì top-bar ôm hết phần header và có position: relative => chúng ta để z-index: 1 vào đây
     position: relative;
     margin: 40px 0;
+
+    @include abstracts.breakpoint(md) {
+       margin: 30px 0; 
+    }
 
     &__inner {
         display: flex;
@@ -8,21 +17,41 @@
         overflow: hidden;
     }
 
+    // Vấn đề về img của shildeshow => khi thay 1 bức ảnh có height nhỏ hoặc lớn hơn bức ảnh thì chiều cao của slideshow sẽ bị ảnh hưởng theo => có thể gây ảnh hưởng đến bố cục trang web
+    // Xử lý làm sao để thay bức ảnh có kích thước như nào đi nữa thì bức ảnh cũng có kích thước như thiết kế.
+    // B1: Tính tỷ lệ: Lấy chiều cao chia cho chiều ngang của slideshow: 455/1340: 34%
+    // B2: Vào thẻ cha có chứa bức ảnh là __item có padding-top: 34%;
+    // B3: Thêm position: relative vào thẻ cha và position: absolute vào thẻ con
+    // B4: để nội dung bức hình nằm trong thì dùng height: 100%; với __img
     &__item {
+        position: relative;
         // Do inner có flex-box nên flex-item là __item sẽ có tính shrink nên nhỏ lại => để cho width: 100% thì dùng flex-shrink: 0;
         flex-shrink: 0;
         width: 100%;
+        padding-top: 34%; // 34% độ rộng của thẻ cha của nó
+
+        @include abstracts.breakpoint(md) {
+            padding-top: 50%;
+        }
     }
 
     &__img {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
     }
 
     &__page {
         --color: #fff;
         position: absolute;
-        bottom: 67px;
-        left: 67px;
+        bottom: 15%;
+        left: 5.2%;
+        // width page ăn % theo slideshow
+        width: 12.8%;
         display: flex;
         align-items: center;
         column-gap: 24px;
@@ -33,11 +62,18 @@
         font-weight: 500;
         line-height: 1.44; /* 144.444% */
         color: var(--color);
+
+        @include abstracts.breakpoint(md) {
+            font-size: 1.4rem;
+        line-height: 142.857%;
+        }
+        
     }
 
     &__slider {
         position: relative;
-        width: 163px;
+        // Slider ăn % theo __page
+        width: 100%;
         height: 4px;
         flex-shrink: 0;
         background: var(--color);
@@ -51,6 +87,10 @@
             height: 14px;
             border: 4px solid var(--color);
             border-radius: 50%;
+
+            @include abstracts.breakpoint(md) {
+                border-width: 3px;
+            }
         }
 
         &::before {
